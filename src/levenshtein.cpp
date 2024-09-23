@@ -65,13 +65,11 @@ int levenshtein_with_edits(std::string ref, std::string hyp,
       }
     }
   }
-  VLOG(1) << "Mincost " << costs[n1][n2];
   int i = n1;
   int j = n2;
   // Emits pairs (n1_pos, n2_pos) where n1_pos is a position in n1 and n2_pos
   // is a position in n2.
   while (i > 0 || j > 0) {
-    VLOG(2) << "i: " << i << " j: " << j;
     EditOp ed_op;
     if (i >= 0 && j >= 0) {
       ed_op = backptr[i][j];
@@ -83,7 +81,7 @@ int levenshtein_with_edits(std::string ref, std::string hyp,
       ed_op = Insertion;
     }
     if (i < 0 && j < 0) {
-      LOG(FATAL) << "Invalid alignment";
+      std::abort();
     }
     if (ed_op == Insertion) {
       align->emplace_back(std::make_pair(-1, j - 1));

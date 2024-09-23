@@ -1,8 +1,6 @@
 #include <pybind11/pybind11.h>
 
 #include <algorithm>
-#include <map>
-#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -17,7 +15,12 @@ namespace levenshtein {
 const float kMaxCost = 1e9;
 
 // Edit Operations
-enum EditOp { Correct = 0, Substitution = 1, Insertion = 2, Deletion = 3 };
+enum EditOp {
+    Correct = 0,
+    Substitution = 1,
+    Insertion = 2,
+    Deletion = 3
+};
 
 std::vector<std::string> str_split(std::string text, std::string delimiter) {
     std::vector<std::string> result;

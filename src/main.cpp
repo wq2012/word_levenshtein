@@ -12,8 +12,6 @@
 
 namespace levenshtein {
 
-const float kMaxCost = 1e9;
-
 // Edit Operations
 enum EditOp {
     Correct = 0,
@@ -27,10 +25,15 @@ std::vector<std::string> str_split(std::string text, std::string delimiter) {
     do {
         size_t pos = text.find(delimiter);
         if (pos == std::string::npos) {
-            result.push_back(text);
+            if (!text.empty()) {
+                result.push_back(text);
+            }
             break;
         }
-        result.push_back(text.substr(0, pos));
+        std::string substr = text.substr(0, pos);
+        if (!substr.empty()) {
+            result.push_back(substr);
+        }
         text = text.substr(pos + delimiter.size());
     } while (true);
     return result;
@@ -132,10 +135,6 @@ std::string levenshtein_with_edits(std::string ref,
 namespace py = pybind11;
 
 PYBIND11_MODULE(word_levenshtein, m) {
-
-    m.def("str_slit", &levenshtein::str_split, R"pbdoc(
-        Split a string by a delimiter.
-    )pbdoc");
 
     m.def("levenshtein_with_edits", &levenshtein::levenshtein_with_edits, R"pbdoc(
         Edit distance of two sequences.

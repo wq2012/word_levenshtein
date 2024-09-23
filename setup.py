@@ -12,14 +12,14 @@ __version__ = "0.0.1"
 ext_modules = [
     Pybind11Extension(
         "levenshtein",
-        ["src/levenshtein.cpp", "src/levenshtein.h"],
+        ["src/main.cpp"],
         # Example: passing in the version to the compiled code
         define_macros=[("VERSION_INFO", __version__)],
     ),
 ]
 
 setup(
-    name="python_example",
+    name="word_levenshtein",
     version=__version__,
     author="Quan Wang",
     author_email="quanw@google.com",

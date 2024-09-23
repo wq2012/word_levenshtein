@@ -19,7 +19,7 @@ const float kMaxCost = 1e9;
 // Edit Operations
 enum EditOp { Correct = 0, Substitution = 1, Insertion = 2, Deletion = 3 };
 
-std::vector<std::string> StrSplit(std::string text, std::string delimiter) {
+std::vector<std::string> str_split(std::string text, std::string delimiter) {
     std::vector<std::string> result;
     do {
         size_t pos = text.find(delimiter);
@@ -34,11 +34,11 @@ std::vector<std::string> StrSplit(std::string text, std::string delimiter) {
 }
 
 
-int levenshtein_with_edits(std::string ref, std::string hyp,
+int levenshtein_with_edits_internal(std::string ref, std::string hyp,
     std::string delimiter,
     std::vector<std::pair<int, int>>* align) {
-    std::vector<std::string> s1 = StrSplit(ref, delimiter);
-    std::vector<std::string> s2 = StrSplit(hyp, delimiter);
+    std::vector<std::string> s1 = str_split(ref, delimiter);
+    std::vector<std::string> s2 = str_split(hyp, delimiter);
     int n1 = s1.size();
     int n2 = s2.size();
     std::vector<std::vector<int> > costs(n1 + 1);
@@ -108,11 +108,11 @@ int levenshtein_with_edits(std::string ref, std::string hyp,
     return costs[n1][n2];
 }
 
-std::string levenshtein_with_edits_string(std::string ref,
+std::string levenshtein_with_edits(std::string ref,
     std::string hyp,
     std::string delimiter) {
     std::vector<std::pair<int, int> > align;
-    int edit_distance = levenshtein_with_edits(ref, hyp, delimiter,
+    int edit_distance = levenshtein_with_edits_internal(ref, hyp, delimiter,
         &align);
     std::string align_str;
     for (int i = 0; i < align.size(); ++i) {
@@ -130,7 +130,11 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(word_levenshtein, m) {
 
-    m.def("levenshtein_with_edits_string", &levenshtein::levenshtein_with_edits_string, R"pbdoc(
+    m.def("str_slit", &levenshtein::str_split, R"pbdoc(
+        Split a string by a delimiter.
+    )pbdoc");
+
+    m.def("levenshtein_with_edits", &levenshtein::levenshtein_with_edits, R"pbdoc(
         Edit distance of two sequences.
     )pbdoc");
 

@@ -1,6 +1,9 @@
 import word_levenshtein_cpp
 
-def levenshtein_with_edits(ref: str, hyp: str
+
+def levenshtein_with_edits(
+    ref: str,
+    hyp: str
 ) -> tuple[int, list[tuple[int, int]]]:
   str_result = word_levenshtein_cpp.levenshtein_with_edits(
       ref, hyp, " ")

@@ -125,7 +125,7 @@ std::string levenshtein_with_edits(std::string ref,
         if (i != 0) {
             align_str += "_";
         }
-        align_str += std::to_string(align[i].first) + "_" + std::to_string(align[i].second);
+        align_str += std::to_string(align[i].first) + "," + std::to_string(align[i].second);
     }
     return std::to_string(edit_distance) + " " + align_str;
 }
@@ -134,7 +134,7 @@ std::string levenshtein_with_edits(std::string ref,
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(word_levenshtein, m) {
+PYBIND11_MODULE(word_levenshtein_cpp, m) {
 
     m.def("levenshtein_with_edits", &levenshtein::levenshtein_with_edits, R"pbdoc(
         Edit distance of two sequences.

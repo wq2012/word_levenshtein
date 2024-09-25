@@ -1,8 +1,8 @@
 # Available at setup time due to pyproject.toml
 from pybind11.setup_helpers import Pybind11Extension, build_ext
-from setuptools import setup
+import setuptools
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
@@ -11,13 +11,13 @@ __version__ = "0.0.1"
 
 ext_modules = [
     Pybind11Extension(
-        "word_levenshtein",
+        "word_levenshtein_cpp",
         ["src/main.cpp"],
         define_macros=[("VERSION_INFO", __version__)],
     ),
 ]
 
-setup(
+setuptools.setup(
     name="word_levenshtein",
     version=__version__,
     author="Quan Wang",
@@ -32,4 +32,5 @@ setup(
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
     python_requires=">=3.7",
+    packages=setuptools.find_packages(),
 )

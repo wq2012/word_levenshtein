@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 
 [tool.cibuildwheel]
-test-command = "python {project}/levenshtein_test.py"
+test-command = "python {project}/tests/word_levenshtein_test.py"
 test-skip = "*universal2:arm64"
 
 

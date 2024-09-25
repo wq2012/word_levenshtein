@@ -1,2 +1,3 @@
-# levenshtein
-levenshtein algorithm in C++ for Python
+# word_levenshtein
+
+A Python package of Levenshtein algorithm, but implemented in C++.

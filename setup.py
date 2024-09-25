@@ -2,7 +2,7 @@
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 import setuptools
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
@@ -17,14 +17,18 @@ ext_modules = [
     ),
 ]
 
+with open("README.md", "r") as file_object:
+    LONG_DESCRIPTION = file_object.read()
+
 setuptools.setup(
     name="word_levenshtein",
     version=__version__,
     author="Quan Wang",
     author_email="quanw@google.com",
-    url="https://github.com/wq2012/levenshtein",
+    url="https://github.com/wq2012/word_levenshtein",
     description="Levenshtein in C++ for Python",
-    long_description="",
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
